@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:api-gateway="http://www.mulesoft.org/schema/mule/api-gateway"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/mule/api-gateway/current/mule-api-gateway.xsd">
+	
+	 <http:listener-config name="fakestore-cart-papi-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${http.port}" readTimeout="${http.timeout}"/>
+    </http:listener-config>
+    <apikit:config name="fakestore-cart-papi-config" api="resource::706f4d0a-e4a3-40fb-8365-ae5ac1f0a8d7:fakestore-cart-prc-api:1.0.2:raml:zip:fakestore-cart-prc-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
+	<configuration-properties doc:name="Configuration properties" doc:id="f3b667a6-4d89-4131-9a0e-8f8650077aa6" file="config/${mule.env}.yaml" />
+	<http:request-config name="fakestore-proxy-api-config" doc:name="HTTP Request configuration" doc:id="80791b9e-ffab-4103-b32e-b0a26712305a">
+		<http:request-connection port="${fakestoreproxyapi.port}" connectionIdleTimeout="${http.timeout}" host="${fakestoreproxyapi.host}"/>
+	</http:request-config>
+	<http:request-config name="checkout-api-config" doc:name="HTTP Request configuration" doc:id="98992f4f-ce6b-4e99-9184-09e637986fb7" >
+		<http:request-connection host="${checkoutproxyapi.host}" port="${checkoutproxyapi.port}" connectionIdleTimeout="${http.timeout}" />
+	</http:request-config>
+	<os:object-store name="cart_os" doc:name="Object store" doc:id="46aeb4d3-a19c-4884-8707-56f7aab049d2" maxEntries="10"/>
+	<http:request-config name="fakestore-product-papi-config" doc:name="HTTP Request configuration" doc:id="53a879a5-f81a-45d1-84b7-6748979173d1" >
+		<http:request-connection host="${fakestoreproductapi.host}" port="${fakestoreproductapi.port}" connectionIdleTimeout="${http.timeout}" />
+	</http:request-config>
+	<configuration doc:name="Configuration" doc:id="16f8d39b-d52f-4b7e-9364-bd6da99c266e" defaultErrorHandler-ref="globalError_Handler" />
+	<api-gateway:autodiscovery apiId="${app.appId}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="cbce3098-94e3-470f-9472-dbda264f51e5" flowRef="fakestore-cart-papi-main" />
+	<error-handler name="globalError_Handler" doc:id="6751d71f-aa12-4a88-b38e-4d24b2d1cfc2" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="eba97e27-0eba-4f98-b3fc-ddde25e7ddc7" type="HTTP:TIMEOUT">
+			<ee:transform doc:name="HTTP:TIMEPOUT" doc:id="201d397b-ef81-41c3-bfee-72a7fa4474d0" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"header":{
+		"apiName": p('app.name'),
+		"apiVersion": 
+		"correlationId": correlationId,
+    }, 
+    "error": {
+		"description": error.description,
+		"status": error.errorType.identifier,
+		"invocationTimestamp": now()
+	}
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="f82b86d1-04c6-420d-9fd7-f0b3ae62c144" type="ANY">
+			<ee:transform doc:name="ANY" doc:id="17f8defc-4f4c-4662-800c-de4519d5728b" >
+				<ee:message >
+					<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"header":{
+		"apiName": p('app.name'),
+		"apiVersion": 
+		"correlationId": correlationId,
+    }, 
+    "error": {
+		"description": error.description,
+		"status": error.errorType.identifier,
+		"invocationTimestamp": now()
+	}
+}]]></ee:set-payload>
+				</ee:message>
+			</ee:transform>
+		</on-error-propagate>
+	</error-handler>
+	
+</mule>

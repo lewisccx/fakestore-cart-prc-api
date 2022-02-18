@@ -1,0 +1,11 @@
+%dw 2.0
+
+type auto_b0c099e0_7a14_4c56_9283_6586287b49ae_Input_Payload = {
+  date: String, 
+  id?: Number, 
+  userId: Number, 
+  products: Array<{    quantity: Number,     productId: Number,     _?: Any  }> {"description": "product array"}, 
+  _?: Any
+} {"description": "Cart Data Types",
+"label": "Cart Data Types"}
+

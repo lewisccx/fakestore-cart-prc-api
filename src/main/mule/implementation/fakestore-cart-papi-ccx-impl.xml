@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<sub-flow name="RetrieveCartFromObjectStore" doc:id="6eec4d6d-91b1-448e-b274-d4a9eeb1b4c4" >
+		<os:retrieve doc:name="Retrieve cart from OS" doc:id="151b77ab-f220-4565-aba1-be3948d2159f" key="#[vars.cartId]" objectStore="cart_os"/>
+		<ee:transform doc:name="Map to cart" doc:id="10d8e2e3-dc4c-4eff-9df7-d4300bf64fa9" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	id: payload.id,
+	userId: payload.userId,
+	date: payload.date default now(),
+	products: payload.products map ( product , indexOfProduct ) -> {
+		productId: product.productId,
+		quantity: product.quantity,
+		title: product.title,
+		total: product.total,
+	},
+	subtotal: payload.subtotal
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="checkoutCart" doc:id="ff004fde-fc46-4d58-8260-ac5ac72c3edd">
+		<set-variable value="#[payload]" doc:name="Set cart variable" doc:id="7724e877-8bf3-4e1a-8c33-8e2ca95daf06" variableName="cart" />
+		<http:request method="GET" doc:name="Fakestore User API" doc:id="122e911e-4c9c-44ed-9353-4ca1ed0f2edf" config-ref="fakestore-proxy-api-config" path="/users/{id}">
+			<http:uri-params><![CDATA[#[output application/java
+---
+{
+	"id" : payload.userId
+}]]]></http:uri-params>
+		</http:request>
+		<set-variable value="#[payload.username]" doc:name="Get username of the cart " doc:id="f1464a6a-340f-4cd8-80e8-58d63014eba7" variableName="username" />
+		<ee:transform doc:name="Map cart to order" doc:id="3ba75333-2400-41ab-b035-8aae8b30cf48">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	title: vars.cart.products.title joinBy ", ",
+	price: vars.cart.subtotal as String default "0" ,
+	purchased_date:  vars.cart.date,
+	created_by: vars.username
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<http:request method="POST" doc:name="Checkout Proxy API " doc:id="1039dc67-e809-4f02-b84f-dff2ac25f318" config-ref="checkout-api-config" path="/checkout" />
+		<ee:transform doc:name="order" doc:id="b763aff6-5acc-4762-b439-c446d74b9cb0">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+	<sub-flow name="checkIfCartIdExistsInObjectStore" doc:id="95a2ed59-e524-4c51-9f2b-db364d1f136e" >
+		<set-variable value="#[attributes.uriParams.id]" doc:name="Set cart ID" doc:id="e160a78c-09da-4fba-9908-ba14ec288094" variableName="cartId" />
+		<os:contains doc:name="Check if cart_os contains the cart" doc:id="932836ab-6136-43bd-99dc-fcaf190ee92e" key="#[attributes.uriParams.id]" objectStore="cart_os" />
+	</sub-flow>
+	<sub-flow name="processCart" doc:id="6e06e568-5000-4ee8-bf66-1b986240d8a4">
+		<logger level="INFO" doc:name="Start pocess Cart" doc:id="35e6211a-a504-4309-b330-67c0715b6e00" message="Start Process Cart" />
+		<set-variable value="#[%dw 2.0&#10;output application/json&#10;--- &#10;payload]" doc:name="Store cart to temp variable" doc:id="5daa95f0-f081-413d-9dfd-d0b16d0caa61" variableName="cart" />
+		<logger level="INFO" doc:name="Get all products" doc:id="c1c32208-ec84-4624-9552-9f71f86c4915" message="Get all products" />
+		<http:request method="GET" doc:name="Product Proxy API" doc:id="8b8b4e92-727f-4d55-b896-a16b6ad906f6" config-ref="fakestore-product-papi-config" path="/products">
+			</http:request>
+		<ee:transform doc:name="Map and calculate each product total price in the cart" doc:id="1d46c791-98ca-424f-bb11-1fef00bfefa3">
+			<ee:message>
+				<ee:set-payload resource="processCart.dwl" />
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End of cart processing" doc:id="0f039201-5de3-473b-a37f-bddcac27d76f" message="End of cart processing" />
+	</sub-flow>
+	<flow name="getAllCarts-implFlow" doc:id="4a22b1b1-9f50-4f01-8eab-5687ac042665">
+		<logger level="INFO" doc:name="Get all carts" doc:id="1830de56-f3c1-4f8f-b79b-dd5ef4ad8071" message="Get all carts"/>
+		<http:request method="GET" doc:name="Fakestore Cart Proxy API" doc:id="2050029d-9eb6-4b35-a0e3-84a9a6fb39db" config-ref="fakestore-proxy-api-config" path="/carts" />
+		<ee:transform doc:name="carts" doc:id="e736a4e0-1dd9-44c6-b9cd-6619151db658">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+type dateFormat = String {format: "yyyy-MM-dd"}
+---
+payload map ( payload01 , indexOfPayload01 ) -> {
+	id: payload01.id,
+	userId: payload01.userId,
+	date: payload01.date as DateTime as dateFormat ,
+	products: payload01.products map ( product , indexOfProduct ) -> {
+		productId: product.productId,
+		quantity: product.quantity
+	}
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End of Get all carts" doc:id="93cfd71e-5cc0-42e8-8048-48c6a60fa2ac" message="End of Get all carts"/>
+	</flow>
+	<flow name="getCartByID-implFlow" doc:id="c50b8fe1-d78c-4d36-a9fc-ff9aa65223f3" >
+		<logger level="INFO" doc:name="Start get cart by ID" doc:id="1104cfe9-2a72-480f-9859-af224fbde37a" message="Start get cart by ID"/>
+		<flow-ref doc:name="Check if cart ID exists in Object Store" doc:id="c054732b-b6dc-4be2-8b8c-f128f8641b4e" name="checkIfCartIdExistsInObjectStore"/>
+		<choice doc:name="Choice" doc:id="65a19e05-3063-458e-94b0-7c1873499641" >
+			<when expression="#[payload == true]">
+				<flow-ref doc:name="If cart exists, retrieve the cart from Object Store" doc:id="08c30361-7acb-4a99-b1c0-cc394c9d70f8" name="RetrieveCartFromObjectStore"/>
+				<logger level="INFO" doc:name="Retrieved cart from Object Store " doc:id="c96ba584-cbcc-4cd6-9321-674fc065ef89" message="Retrieved cart from Object Store "/>
+			</when>
+			<otherwise >
+				<http:request method="GET" doc:name="Fakestore Cart Proxy API" doc:id="e9c0e59a-ee48-46cc-b55c-97925254c366" config-ref="fakestore-proxy-api-config" path="/carts/{id}">
+			<http:uri-params><![CDATA[#[output application/java
+---
+{
+	"id" : vars.cartId
+}]]]></http:uri-params>
+		</http:request>
+				<choice doc:name="Choice" doc:id="2710319d-189c-4503-859b-50125e576337">
+					<when expression="#[payload != null]">
+						<flow-ref doc:name="Process Cart" doc:id="7f0f68ee-9d58-43f7-aa72-c02922c10209" name="processCart" />
+						<logger level="INFO" doc:name="Cart has been processed" doc:id="b3a4b567-7b2d-496e-9b0b-c247b62c1a54" message="End of Cart Processing"/>
+					</when>
+					<otherwise >
+						<ee:transform doc:name="cart not exists" doc:id="d17fc440-35a8-424e-a15b-bd48c2348ba3" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "The cart does not exists"
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="Cart does not exists" doc:id="c1a1ed46-c378-4436-9e29-5aa7de008117" message="Cart does not exists"/>
+					</otherwise>
+				</choice>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End of get cart by ID" doc:id="834405a5-64b8-4e27-92a4-733978926a71" message="End of get cart by ID"/>
+	</flow>
+	<flow name="createNewCart-implFlow" doc:id="b0c099e0-7a14-4c56-9283-6586287b49ae" >
+		<logger level="INFO" doc:name="Start create new cart" doc:id="158bb5db-a684-4d2c-a674-98c0550658e6" message="Start create new cart"/>
+		<http:request method="POST" doc:name="Fakestore Cart Proxy API" doc:id="98226050-5576-48bc-aae5-1a3242ec263e" config-ref="fakestore-proxy-api-config" path="/carts"/>
+		<flow-ref doc:name="Process Cart" doc:id="1cf79b66-4bc7-448f-bdeb-070705830a78" name="processCart"/>
+		<choice doc:name="Choice" doc:id="ac229d06-19c5-40b1-bab2-1bfb2b580ff6" >
+			<when expression="#[%dw 2.0&#10;output application/json&#10;import isNumeric from dw::core::Strings&#10;---&#10;if ((payload.products map((item, index) -&gt; item.quantity &gt; 0)) contains false) true else false]" >
+				<ee:transform doc:name="Invalid product quantity" doc:id="6c581732-7614-4759-85ce-eb6b53341d15" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Invalid product quantity"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Invalid product quantity  &lt;= 0" doc:id="af8ffa73-5c4e-415d-aa39-4ff14e49ee91" message="Invalid product quantity  &lt;= 0"/>
+			</when>
+			<otherwise>
+				<os:store doc:name="Store newly created cart" doc:id="31569cbe-d4d1-4e01-b9c6-0c968a9c499c" key="#[payload.id]" failIfPresent="true" objectStore="cart_os" />
+				<logger level="INFO" doc:name="Store newly creately cart to Object Store" doc:id="b3b840ca-7ceb-4590-8e10-800c6b167dc4" message="Store newly creately cart to Object Store"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End of creat new cart" doc:id="14385cce-4d3f-4c6a-a28c-2592110b450f" message="End of creat new cart"/>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="afaa1ede-f94e-443f-9490-94298e17a303" type='OS:KEY_ALREADY_EXISTS'>
+				<ee:transform doc:name="cart already exists" doc:id="d64ff839-5f53-4e37-a366-f49414a1d134" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Your cart has already been created"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="200" doc:name="httpStatus" doc:id="cba53838-5ac3-4204-8b63-e48804425f3b" variableName="httpStatus"/>
+			</on-error-continue>
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="0a9e67df-d650-45f0-ac10-6d26fb1169b0" type="HTTP:NOT_FOUND">
+				<ee:transform doc:name="product not found" doc:id="6349e6cd-9443-48df-a4d1-eaf929495ff0" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "The product does not exists"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="200" doc:name="httpStatus" doc:id="f3257867-9043-4d95-aa9e-2dc8d4ac5145" variableName="httpStatus"/>
+			</on-error-continue>
+		</error-handler>
+	</flow>
+	<flow name="updateCart-implFlow" doc:id="14a16828-5a94-4552-9545-89a5034bb968" >
+		<logger level="INFO" doc:name="Start update cart" doc:id="506b5d54-dcf1-4c4c-b56c-e984562b3095" message="Start update cart"/>
+		<set-variable value="#[attributes.uriParams.id]" doc:name="Cart ID" doc:id="8134a2f5-3de6-4ec5-96ae-0e1aefed7990" variableName="cartId" />
+		<http:request method="PUT" doc:name="Fakestore Cart Proxy API" doc:id="cf02513c-7bba-40fe-9430-42fd2b8bf031" config-ref="fakestore-proxy-api-config" path="/carts/{id}">
+			<http:uri-params><![CDATA[#[output application/java
+---
+{
+	"id" : vars.cartId
+}]]]></http:uri-params>
+		</http:request>
+		<flow-ref doc:name="process cart" doc:id="bef56441-8680-4f49-ad2f-4f80da718e8d" name="processCart"/>
+		<choice doc:name="Choice" doc:id="d964ac6c-ce1b-40b1-ac9b-89a020cbc2fa" >
+			<when expression="#[%dw 2.0&#10;output application/json&#10;import isNumeric from dw::core::Strings&#10;---&#10;if ((payload.products map((item, index) -&gt; item.quantity &gt; 0)) contains false) true else false]">
+				<ee:transform doc:name="Invalid product quantity" doc:id="57973fc8-35b7-441d-a579-927a20eea6cf">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "Invalid product quantity"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<logger level="INFO" doc:name="Invalid product quantity &lt;= 0" doc:id="f2a000b3-ba6e-45c0-a222-69e9ba13e9fe" />
+			</when>
+			<otherwise >
+				<os:store doc:name="Store updated cart" doc:id="796a2f5a-1b29-4b14-9d6c-1498c91f6417" key="#[payload.id]" objectStore="cart_os" />
+				<logger level="INFO" doc:name="Store updated cart into Object Store" doc:id="1926d883-bd32-479d-aa5c-f596d1e86f17" message="Store updated cart into Object Store"/>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End of update cart" doc:id="dcec74df-b492-4d20-a34e-109dddbf4583" message="End of update cart"/>
+		<error-handler >
+			<on-error-continue enableNotifications="true" logException="true" doc:name="On Error Continue" doc:id="8d0891bf-8e19-4a23-869c-a1a87789d60d" type="HTTP:NOT_FOUND" >
+				<ee:transform doc:name="product not found" doc:id="0d347904-7e50-4fff-aa86-1a9ecf36e423" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "The product does not exists"
+}]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+				<set-variable value="200" doc:name="httpStatus" doc:id="5d4c044e-d7b9-4b82-851f-02a6b2de03be" variableName="httpStatus" />
+			</on-error-continue>
+		</error-handler>
+	</flow>
+	<flow name="deleteCart-implFlow" doc:id="ca6d1604-560f-422a-a5c0-f7afda015fb9" >
+		<logger level="INFO" doc:name="Start delete cart" doc:id="43380a47-ef7a-4e9a-af26-a64e075e0601" message="Start delete cart"/>
+		<flow-ref doc:name="Check if cart ID exists in Object Store" doc:id="f7590c51-ad9c-4491-a056-574859c970ec" name="checkIfCartIdExistsInObjectStore"/>
+		<choice doc:name="Choice" doc:id="008ab084-e023-445f-9280-c954e5cb429e" >
+			<when expression="#[payload == true]">
+				<os:retrieve doc:name="Cart exists in Object Store, Retrieve the cart" doc:id="40a5b620-3e66-471a-bfbc-fb58b88f633b" key="#[vars.cartId]" objectStore="cart_os"/>
+				<os:remove doc:name="Remove the cart" doc:id="1202708c-0e78-4e22-982b-555f954353e3" key="#[vars.cartId]" objectStore="cart_os"/>
+				<logger level="INFO" doc:name="The cart has been deleted from Object Store" doc:id="e29771f8-2fcd-4f68-9cd6-bfae9c97fb3d" message="The cart has been deleted from Object Store"/>
+			</when>
+			<otherwise >
+				<http:request method="DELETE" doc:name="Fakestore Cart Proxy API" doc:id="83d788b5-6ff2-465b-aa6d-cc715e4be460" config-ref="fakestore-proxy-api-config" path="/carts/{id}">
+			<http:uri-params><![CDATA[#[output application/java
+---
+{
+	"id" : vars.cartId
+}]]]></http:uri-params>
+		</http:request>
+				<choice doc:name="Choice" doc:id="52ceaabb-0603-441b-bb33-dc3c819fc491">
+					<when expression="#[payload != null]">
+						<ee:transform doc:name="deleted cart" doc:id="3f3af3cf-4afb-4b85-92fc-0334d9efffa5">
+					<ee:message>
+						<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+						<logger level="INFO" doc:name="The cart has been deleted" doc:id="1177677f-dcc2-42c6-9931-6e51561c714c" />
+					</when>
+					<otherwise>
+						<ee:transform doc:name="cart not exists" doc:id="146b9f5c-50b4-430e-a013-503ed4caf892" >
+							<ee:message >
+								<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "The cart does not exists" 
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="Cart ID not found" doc:id="00374329-9310-4b8e-a06d-2c82156cbc42" message="Cart ID not found"/>
+					</otherwise>
+				</choice>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End of delete cart" doc:id="07e05856-8d26-44cb-98dc-c256717ed940" />
+	</flow>
+	<flow name="checkoutCart-implFlow" doc:id="d01f5005-870c-46d5-a51d-4d002cd781eb" >
+		<logger level="INFO" doc:name="Start checkout cart" doc:id="44701150-e540-4d16-9e15-82fd4bb98799" message="Start checkout cart"/>
+		<set-variable value="#[payload.cartId]" doc:name="Cart ID" doc:id="7b6e1871-387f-4f84-853d-e6d894e2473d" variableName="cartId" />
+		<os:contains doc:name="Check if cart_os contains the cart" doc:id="272f8b05-2763-4272-8978-dcab9213be53" key="#[payload.cartId]" objectStore="cart_os" />
+		<choice doc:name="Choice" doc:id="bcca3656-8849-4797-a6a7-90ad23cae87a" >
+			<when expression="#[payload == true]">
+				<os:retrieve doc:name="The cart exists in Object Store, retrieve the cart" doc:id="13af831b-8516-40ed-a8c7-636f2b128af9" key="#[vars.cartId]" objectStore="cart_os"/>
+				<flow-ref doc:name="Checkout the cart" doc:id="8908ef9b-d9ba-4a7a-aafa-2833221c9cd5" name="checkoutCart"/>
+				<os:remove doc:name="Remove the cart from Object Store" doc:id="8055985b-7076-43bf-9a77-fce530932136" key="#[vars.cartId]" objectStore="cart_os" />
+				<logger level="INFO" doc:name="Logger" doc:id="1f3082ba-5d23-452f-ac17-abeb07bf2e77" />
+			</when>
+			<otherwise >
+				<http:request method="GET" doc:name="Fakestore Cart Proxy API" doc:id="de9986de-d222-4db1-a3ec-7dd25fdda3a9" config-ref="fakestore-proxy-api-config" path="/carts/{id}">
+			<http:uri-params><![CDATA[#[output application/java
+---
+{
+	"id" : vars.cartId
+}]]]></http:uri-params>
+		</http:request>
+				<choice doc:name="Choice" doc:id="de37ccc9-2e03-4f2f-a9c9-5895b12a5e5b">
+					<when expression="#[payload != null]">
+						<flow-ref doc:name="Process Cart " doc:id="1df5180d-d7c4-41f4-8f1f-61acaca079a0" name="processCart" />
+						<flow-ref doc:name="Checkout the cart" doc:id="aea54640-5c79-4820-bc38-662b0f9dbfb5" name="checkoutCart" />
+						<logger level="INFO" doc:name="The cart has been checkout" doc:id="92f88228-da6d-4702-a894-11a4e43cd96d" message="The cart has been checkout"/>
+					</when>
+					<otherwise>
+						<ee:transform doc:name="cart not exists" doc:id="c9973e34-74f4-4847-9225-5515882ac130">
+							<ee:message>
+								<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": "The cart does not exists" 
+}]]></ee:set-payload>
+							</ee:message>
+						</ee:transform>
+						<logger level="INFO" doc:name="The cart does not exists" doc:id="2b0eec80-32f8-4c21-ad45-519781310045" message="The cart does not exists"/>
+					</otherwise>
+				</choice>
+			</otherwise>
+		</choice>
+		<logger level="INFO" doc:name="End of checkout cart" doc:id="6918d28c-aeab-4aa8-ad08-8b1ac22ff4cf" message="End of checkout cart"/>
+	</flow>
+</mule>

@@ -1,0 +1,12 @@
+%dw 2.0
+
+type auto_d01f5005_870c_46d5_a51d_4d002cd781eb_Input_Payload = {
+  price: String, 
+  id?: String, 
+  title: String, 
+  created_by: String, 
+  purchased_date: String, 
+  _?: Any
+} {"description": "Order data type format",
+"label": "Order Data Type"}
+

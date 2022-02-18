@@ -1,0 +1,25 @@
+app:
+  appId: "17623830"
+http:
+  port: "8081"
+  timeout: "30000"
+fakestoreproxyapi:
+  host: "fake-store-proxy-api.sg-s1.cloudhub.io"
+  port: "80"
+  basepath: "/"
+  protocol: "HTTP"
+checkoutproxyapi:
+  host: "fakestore-checkout-proxy-api.sg-s1.cloudhub.io"
+  port: "80"
+  basepath: "/"
+  protocol: "HTTP"
+fakestoreproductapi:
+  host: "fakestore-product-proxy-api.sg-s1.cloudhub.io"
+  port: "80"
+  basepath: "/"
+  protocol: "HTTP"
+layer: "prc"
+version: "v1"
+context: "fakestore"
+prcpath: "/api/prc/fakestore/v1"
+syspath: "/api/sys/fakestore/v1"

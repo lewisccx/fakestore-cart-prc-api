@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_ff004fde_fc46_4d58_8260_ac5ac72c3edd_Output_Variables_username = Any
+
