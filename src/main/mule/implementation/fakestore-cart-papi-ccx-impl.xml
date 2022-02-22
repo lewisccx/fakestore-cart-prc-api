@@ -52,7 +52,7 @@ output application/json
 }]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<http:request method="POST" doc:name="Checkout Proxy API " doc:id="1039dc67-e809-4f02-b84f-dff2ac25f318" config-ref="checkout-api-config" path="/checkout" />
+		<http:request method="POST" doc:name="Fakestore Checkout Proxy API " doc:id="1039dc67-e809-4f02-b84f-dff2ac25f318" config-ref="checkout-api-config" path="${syspath}/checkout" />
 		<ee:transform doc:name="order" doc:id="b763aff6-5acc-4762-b439-c446d74b9cb0">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -70,7 +70,7 @@ payload]]></ee:set-payload>
 		<logger level="INFO" doc:name="Start pocess Cart" doc:id="35e6211a-a504-4309-b330-67c0715b6e00" message="Start Process Cart" />
 		<set-variable value="#[%dw 2.0&#10;output application/json&#10;--- &#10;payload]" doc:name="Store cart to temp variable" doc:id="5daa95f0-f081-413d-9dfd-d0b16d0caa61" variableName="cart" />
 		<logger level="INFO" doc:name="Get all products" doc:id="c1c32208-ec84-4624-9552-9f71f86c4915" message="Get all products" />
-		<http:request method="GET" doc:name="Product Proxy API" doc:id="8b8b4e92-727f-4d55-b896-a16b6ad906f6" config-ref="fakestore-product-papi-config" path="/products">
+		<http:request method="GET" doc:name="Product Proxy API" doc:id="8b8b4e92-727f-4d55-b896-a16b6ad906f6" config-ref="fakestore-product-papi-config" path="${prcpath}/products">
 			</http:request>
 		<ee:transform doc:name="Map and calculate each product total price in the cart" doc:id="1d46c791-98ca-424f-bb11-1fef00bfefa3">
 			<ee:message>
