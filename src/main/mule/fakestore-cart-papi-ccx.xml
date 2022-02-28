@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
    
-    <flow name="fakestore-cart-papi-main">
+    <flow name="fakestore-cart-papi-main" doc:id="9e06dc8d-f745-4a6b-a087-b26492a5fd4d">
         <http:listener config-ref="fakestore-cart-papi-httpListenerConfig" path="/api/${layer}/${context}/${version}/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>
@@ -159,7 +159,7 @@ output application/json
             </on-error-propagate>
         </error-handler>
     </flow>
-    <flow name="fakestore-cart-papi-console">
+    <flow name="fakestore-cart-papi-console" doc:id="930bd759-54a9-41cf-a60b-f2dfd8d3e494">
         <http:listener config-ref="fakestore-cart-papi-httpListenerConfig" path="/console/*">
             <http:response statusCode="#[vars.httpStatus default 200]">
                 <http:headers><![CDATA[#[vars.outboundHeaders default {}]]]></http:headers>

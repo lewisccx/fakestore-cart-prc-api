@@ -2,7 +2,7 @@ app:
   appId: "17651061"
 http:
   port: "8081"
-  timeout: "30000"
+  timeout: "100000"
 fakestoreproxyapi:
   host: "fake-store-proxy-api.sg-s1.cloudhub.io"
   port: "80"

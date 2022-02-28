@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="fakestore-cart-papi-ccx-impl-suite.xml" />
+	<munit:test name="checkoutCart-implFlow-existingCartCheckoutSuccess" doc:id="87774066-2594-4ab8-988a-cda07d9322c6" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Process Cart " doc:id="3cf7c608-1b5c-45c7-bc53-49f3f1d32643" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="1df5180d-d7c4-41f4-8f1f-61acaca079a0" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_1.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Check if cart_os contains the cart" doc:id="ddf77189-cb2b-48a4-a042-a02cbc99c756" processor="os:contains">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="272f8b05-2763-4272-8978-dcab9213be53" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_payload1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_3.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="6d84cd88-bf75-48b9-b5fe-242ec585beff" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="de9986de-d222-4db1-a3ec-7dd25fdda3a9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_5.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_6.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Checkout the cart" doc:id="604d2f21-4fd0-4d56-b1b9-5e5bbe199c76" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="aea54640-5c79-4820-bc38-662b0f9dbfb5" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_payload3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_attributes2.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_7.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_8.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_9.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="username" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\mock_variable_10.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="984a8a08-f9b3-4e57-99e5-a4a386f78259" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to checkoutCart-implFlow" doc:id="f21f8add-43e8-4eb1-8af7-428c5524991f" name="checkoutCart-implFlow"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="dbc20aa5-8533-457f-8e87-eeb932f2ae34" expression="#[payload.title]" is='#[MunitTools::equalTo("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops")]'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="checkoutCart-implFlow-checkoutCartNotFound" doc:id="76daa1f1-5529-4c92-839a-16aae9e69668" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Check if cart_os contains the cart" doc:id="c2cc0271-4a11-4868-a586-688c7c701bc5" processor="os:contains">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="272f8b05-2763-4272-8978-dcab9213be53" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_payload.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_variable_1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="8f933c81-6634-494d-814e-adff0ffd9b99" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="de9986de-d222-4db1-a3ec-7dd25fdda3a9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\mock_variable_3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="70d095fa-e3b9-45bb-a7f7-afff07425861" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to checkoutCart-implFlow" doc:id="893e2610-7351-4d72-b157-c6c7839c8b4f" name="checkoutCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="ee00ef5f-63fb-4ba0-bcba-f94e9989fe71" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import checkoutCartimplFlowcheckoutCartNotFound::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="checkoutCart-implFlow-checkoutCartExistsInObjectStoreSuccess" doc:id="0f892ff8-11b2-4f1c-8404-a09c25affb14" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Check if cart_os contains the cart" doc:id="c250e56c-739b-41bd-a182-f9ee36a96832" processor="os:contains">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="272f8b05-2763-4272-8978-dcab9213be53" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_payload.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock The cart exists in Object Store, retrieve the cart" doc:id="a270ac4e-d1dc-48c9-9c7c-8bb3939fe7fa" processor="os:retrieve">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="13af831b-8516-40ed-a8c7-636f2b128af9" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Remove the cart from Object Store" doc:id="71115cd8-6186-4ad6-9f14-3c9a954a91d7" processor="os:remove">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="8055985b-7076-43bf-9a77-fce530932136" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_5.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_6.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="username" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_7.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Checkout the cart" doc:id="8d37deee-1163-459c-8b38-e8340bf65fff" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="8908ef9b-d9ba-4a7a-aafa-2833221c9cd5" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_payload3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_8.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_9.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_10.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="username" value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\mock_variable_11.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="19ab1a65-c004-4208-bf7c-be6250a83a91" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to checkoutCart-implFlow" doc:id="0b4277ef-29ee-4e49-92ef-0952874ebd83" name="checkoutCart-implFlow"/>
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert-that doc:name="Assert that" doc:id="dd99631a-2b5e-4e42-9fd3-bb744a125fe9" expression="#[payload.title]" is="#[MunitTools::equalTo(&quot;DANVOUY Womens T Shirt Casual Cotton Short, MBJ Women's Solid Short Sleeve Boat Neck V &quot;)]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="deleteCart-implFlow-deleteCartSuccess" doc:id="32fd1dfe-bd9b-4bbf-b59e-90f30705ff12" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="9c20cc1d-906b-4875-aded-e77eff94ee80" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="83d788b5-6ff2-465b-aa6d-cc715e4be460" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Check if cart ID exists in Object Store" doc:id="548a8d17-5a31-4423-bd58-62b095740e71" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f7590c51-ad9c-4491-a056-574859c970ec" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_payload1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="6ed7e1d4-da0a-4d16-af99-8020fdf0d093" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to deleteCart-implFlow" doc:id="d90d69e4-11f6-42e5-a4ad-4318e259fef0" name="deleteCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="ca9deb00-7fe3-4c91-90a8-ac062f79f9ec" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import deleteCartimplFlowdeleteCartSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="deleteCart-implFlow-deleteCartNotFoundSuccess" doc:id="5db1c156-6a5f-40bd-8281-a1216a8b3f22" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="66ca1715-040b-44db-9245-5667948a7411" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="83d788b5-6ff2-465b-aa6d-cc715e4be460" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Check if cart ID exists in Object Store" doc:id="72a01db0-40f7-4378-8c82-b791c003f763" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f7590c51-ad9c-4491-a056-574859c970ec" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_payload1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="16cd77f3-9e3c-4c94-9e8e-3a8756079cfb" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to deleteCart-implFlow" doc:id="eb63ef47-c2a4-4dfe-8544-708f79549603" name="deleteCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="476390f0-0834-43b6-8311-e11ab04b3394" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import deleteCartimplFlowdeleteCartNotFoundSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="deleteCart-implFlow-deleteCartInObjectStoreSuccess" doc:id="09d7628e-80e4-4483-b3bd-099390e10dce" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Remove the cart" doc:id="9f170f5d-b28c-4c18-9554-e3990f36e39c" processor="os:remove">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="1202708c-0e78-4e22-982b-555f954353e3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Cart exists in Object Store, Retrieve the cart" doc:id="67813e98-3745-40d5-ac61-50ddb1c8fc75" processor="os:retrieve">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="40a5b620-3e66-471a-bfbc-fb58b88f633b" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Check if cart ID exists in Object Store" doc:id="b3be01e1-49a0-414f-a5e4-bef8e1c12b12" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f7590c51-ad9c-4491-a056-574859c970ec" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_payload2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_variable_4.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\mock_variable_5.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="4871b4dd-5c50-435c-85ea-3e98a3078f15" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to deleteCart-implFlow" doc:id="c1c69284-e127-485d-a1dc-933951c8e7fa" name="deleteCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="b80f7d3e-3036-4471-bd52-c1c548c279c0" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import deleteCartimplFlowdeleteCartInObjectStoreSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getAllCarts-implFlow-getAllCartsSuccess" doc:id="389cf0f5-6df5-4131-a545-04f8a5430546" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="9038fe91-d7f2-4ebc-9634-87e5d69d5624" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="2050029d-9eb6-4b35-a0e3-84a9a6fb39db" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="c86a5380-8020-4443-be0d-00a920908754" >
+				<munit:payload value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getAllCarts-implFlow" doc:id="2d218ed3-7381-47cf-8036-fb12ad153f39" name="getAllCarts-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="60aebf5a-2837-4ab4-b422-255a32d2dede" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getAllCartsimplFlowgetAllCartsSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getCartByID-implFlow-getCartByIDSuccess" doc:id="81796c43-efd6-4a51-906d-4ba7ff8e6a8a" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Process Cart" doc:id="96badba3-11b4-4408-9c58-b3e0d0344b7d" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="7f0f68ee-9d58-43f7-aa72-c02922c10209" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_1.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Check if cart ID exists in Object Store" doc:id="70f00944-bed7-4fe6-949f-7bd43d5d868f" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c054732b-b6dc-4be2-8b8c-f128f8641b4e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_payload1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_3.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_4.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="6f521c4f-42c9-4611-addf-dc22ab39d639" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e9c0e59a-ee48-46cc-b55c-97925254c366" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_5.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\mock_variable_6.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="fc0e92d4-b9fc-4aaf-ba5c-76b21155ac41" >
+				<munit:payload value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCartByID-implFlow" doc:id="55342751-6e6b-4bc2-b1e1-1ac97afc11c7" name="getCartByID-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="625c8b01-92f4-4bca-846d-fb7fbba1c84c" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getCartByIDimplFlowgetCartByIDSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getCartByID-implFlow-getCartByIDFailed" doc:id="fd562de2-145e-4d18-a82b-6baaead7bf66" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Check if cart ID exists in Object Store" doc:id="b83858d6-4893-48a2-9fbb-6ed3ae44209e" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c054732b-b6dc-4be2-8b8c-f128f8641b4e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_payload.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="28b93261-173f-443a-b660-7a716648ed17" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="e9c0e59a-ee48-46cc-b55c-97925254c366" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="60f52d1e-4ff1-4ab1-acd1-823c1c145214" >
+				<munit:payload value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCartByID-implFlow" doc:id="8f6a20c7-ac11-4054-937c-e06f8ec69e84" name="getCartByID-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="7a96028e-faa3-4574-a828-e50e3113bad0" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getCartByIDimplFlowgetCartByIDFailed::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getCartByID-implFlow-getCartByIDFromObjectStoreSuccess" doc:id="97e8f48b-abdf-411d-80e7-24552a52fb28" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock If cart exists, retrieve the cart from Object Store" doc:id="93cc1cb1-9e8a-4069-91a8-9bac0bbff69f" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="08c30361-7acb-4a99-b1c0-cc394c9d70f8" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Check if cart ID exists in Object Store" doc:id="4ee323c0-acf0-4577-824a-829dbcf952cf" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="c054732b-b6dc-4be2-8b8c-f128f8641b4e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\mock_payload1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\mock_variable_2.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\mock_variable_3.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="d3ee1031-425e-41ab-bebf-6d5fc4842827" >
+				<munit:payload value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\set-event_payload.dwl')]" encoding="UTF-8" />
+				<munit:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to getCartByID-implFlow" doc:id="87c8e75f-e911-40dd-a396-4402ddbcbc37" name="getCartByID-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="8ecf83b3-6f68-45f7-8eda-d2a3b25d5d33" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createNewCart-implFlow-createNewCartFailedWithProductQuantityLessEqualZero" doc:id="9b90fb4c-dac5-45bc-bef9-651d74d01425" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="01c8dd68-74a8-446d-bad6-df63ea0a975e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="98226050-5576-48bc-aae5-1a3242ec263e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\mock_variable_.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="ff40e23e-dc61-4110-9574-16a2a4497422" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to createNewCart-implFlow" doc:id="28fbcdd0-3e36-4aef-bd8f-78bcca2ebc0f" name="createNewCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="2cede872-1c7d-40df-8b30-18feabab0139" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createNewCart-implFlow-createNewCartFailedWithCartIDExists" doc:id="c866ed09-34a9-41c5-ae25-250a47241ec2" >
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock when Fakestore Cart Proxy API" doc:id="2f1665e4-2e9f-4f9f-b680-669c69ca4039" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-proxy-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_payload2.dwl')]" />
+					<munit-tools:error typeId="OS:KEY_ALREADY_EXISTS" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference to createNewCart-implFlow" doc:id="6463d956-b7ea-44f9-ac6f-b18579708f88" name="createNewCart-implFlow" />
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="af24403f-e988-46b1-aaa9-2fd2b90ce524" expression="#[payload.message]" is='#[MunitTools::equalTo("Your cart has already been created")]' message='The payload message should be "Your cart has already been created"'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createNewCart-implFlow-createNewCartFailedWithProductNotFound" doc:id="d6ef8827-70e4-4b51-8c3f-6559f1d2033c" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when Fakestore Cart Proxy API" doc:id="eba99697-1225-447f-aac2-c05019698573" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-proxy-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_payload3.dwl')]" />
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<try doc:name="Try" doc:id="26bda1e5-98e7-47e6-a395-a9c4a3c41c57" >
+				<flow-ref doc:name="Flow Reference to createNewCart-implFlow" doc:id="36b8f6f0-b3fb-4aaf-9ecc-2058f7e198cb" name="createNewCart-implFlow"/>
+			</try>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="d1defdc2-3614-484a-9fc9-790c457e9586" is='#[MunitTools::equalTo("The product does not exists")]' expression="#[payload.message]" message='The payload message should be "The product does not exists"'/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="updateCart-implFlow-updateCartSuccess" doc:id="060c9977-75ea-468c-ba48-aa8543c59c41" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock process cart" doc:id="e42821ff-98e5-4a24-995d-f05479a9b941" processor="flow-ref">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="bef56441-8680-4f49-ad2f-4f80da718e8d" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_variable_1.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_variable_2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="f71c432c-2166-4b8e-aa1b-12c7487f05b9" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="cf02513c-7bba-40fe-9430-42fd2b8bf031" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_variable_3.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\mock_variable_4.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="f39e8c47-d208-4465-99f7-05f16032f4f4" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to updateCart-implFlow" doc:id="38e80612-d9d8-44e4-a418-59fbd67dfecb" name="updateCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="af223bf8-53a1-41fe-b315-a460fb5161ce" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import updateCartimplFlowupdateCartSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="createNewCart-implFlow-createNewCartSuccess" doc:id="f104d486-e584-4b1a-8701-bef39bc4620a">
+		<munit:behavior>
+			<munit-tools:mock-when doc:name="Mock processCart" doc:id="5ace23f7-efbe-4858-954b-3f5288516e74" processor="flow-ref">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="8e40ad0d-78a0-454c-9575-ae24056178b3" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables>
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_variable_1.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Store newly created cart" doc:id="74650977-9a30-4d44-a264-162c569c19d4" processor="os:store">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="31569cbe-d4d1-4e01-b9c6-0c968a9c499c" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables>
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_variable_2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_variable_3.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="c2a80893-75a8-4171-9d24-7a4baf872f1d" processor="http:request">
+				<munit-tools:with-attributes>
+					<munit-tools:with-attribute whereValue="98226050-5576-48bc-aae5-1a3242ec263e" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_payload2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_attributes2.dwl')]" />
+					<munit-tools:variables>
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\mock_variable_4.dwl')]" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="38e41db4-5728-4d21-8706-3ad220a29922">
+				<munit:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\set-event_attributes.dwl')]" />
+				<munit:variables>
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution>
+			<flow-ref doc:name="Flow-ref to createNewCart-implFlow" doc:id="df68de8a-c562-49fc-8a6b-98b31f5911a8" name="createNewCart-implFlow" />
+		</munit:execution>
+		<munit:validation>
+			<munit-tools:assert doc:name="Assert payload" doc:id="2ca04f7e-371b-4d72-bbed-84cdda2c56a9" message="The payload does not match">
+				<munit-tools:that><![CDATA[#[%dw 2.0
+import createNewCartimplFlowcreateNewCartSuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="updateCart-implFlow-updateCartFailedWithProductQuantityLessEqualZero" doc:id="05dc9044-2986-4281-bcb7-77920e5c5167" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Cart Proxy API" doc:id="872ee06b-6413-4162-ae62-8946234a3b4c" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="cf02513c-7bba-40fe-9430-42fd2b8bf031" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\mock_variable_.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\mock_variable_1.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="2498c1ba-6e70-45c3-b198-d084e0adbc50" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\set-event_variable_.dwl')]" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to updateCart-implFlow" doc:id="8f058b61-0e77-48a0-8153-89c8602d9c6f" name="updateCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="b859c4dd-e41e-4937-9248-cbdf2de230e9" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="updateCart-implFlow-updateCartFailedWithProductNotFound" doc:id="05e05574-cc5d-4d83-a603-38c9829e1e2e" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock when Fakestore Cart Proxy API" doc:id="1450556c-6532-40d0-833b-6c75d09c1696" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-proxy-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\mock_payload2.dwl')]" />
+					<munit-tools:error typeId="HTTP:NOT_FOUND" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow Reference" doc:id="69126e70-b75c-4921-af41-0b259f978977" name="updateCart-implFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="4cc3ad1d-183c-47e1-80a4-422ba01b3cac" is='#[MunitTools::equalTo("The product does not exists")]' expression="#[payload.message]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerNotImplementedSuccess" doc:id="9348f8b3-5a23-4463-9691-e545d303fadf" expectedErrorType="APIKIT:NOT_IMPLEMENTED">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:NOT_IMPLEMENTED" doc:id="ccad1fdf-6dbe-4efd-a7b7-3908ed3f63a4" processor="apikit:router">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="APIKIT:NOT_IMPLEMENTED" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-main" doc:id="e28a87da-384f-46df-87d8-b7d97bc5e435" name="fakestore-cart-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="2ce399ff-3b5d-4833-9347-facf21a8f246" actual="#[vars.httpStatus]" expected="#[501]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerBadRequestSuccess" doc:id="dd39ed35-c9ad-4db2-b84f-3cc87685609a" expectedErrorType="APIKIT:BAD_REQUEST">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:BAD_REQUEST" doc:id="f375813a-229c-4fc9-ba77-cbf1aad211c0" processor="apikit:router">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="APIKIT:BAD_REQUEST" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-main" doc:id="beea5f11-e6df-4930-92f5-cc2810ca51f9" name="fakestore-cart-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="f28481ae-63cf-4222-9cc6-39b409511788" actual="#[vars.httpStatus]" expected="#[400]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerNotFoundSuccess" doc:id="cd98f7b2-6535-42a4-a688-4dfd2c334352" expectedErrorType="APIKIT:NOT_FOUND">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:BAD_REQUEST" doc:id="d796ff3e-d490-40b7-b26f-066914910111" processor="apikit:router">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-main" doc:id="100221bb-dd13-4b84-9869-be52718dd750" name="fakestore-cart-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="de6dac13-bdfd-4935-b1eb-cb3bab156ef4" actual="#[vars.httpStatus]" expected="#[404]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerNotAcceptableSuccess" doc:id="954e8b2a-1c65-4c8a-ad9f-6ac4c1096930" expectedErrorType="APIKIT:NOT_ACCEPTABLE">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:NOT_ACCEPTABLE" doc:id="54bb114f-65e8-4feb-831c-914e766b5b91" processor="apikit:router">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId=" APIKIT:NOT_ACCEPTABLE" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-main" doc:id="0f7056cf-4aff-49f0-8f7c-28ff47a1818c" name="fakestore-cart-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="1a830d93-0155-476c-a0ef-301bf73851c0" actual="#[vars.httpStatus]" expected="#[406]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerUnsupportedMediaTypeSuccess" doc:id="3f32ef39-0213-4a23-91c1-a9a4f9e1a436" expectedErrorType="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:UNSUPPORTED_MEDIA_TYPE" doc:id="a3b66684-a01d-426a-a937-f0d84d1bdf8d" processor="apikit:router">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="APIKIT:UNSUPPORTED_MEDIA_TYPE" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-main" doc:id="7461970d-0167-4b1d-87ee-911a08903baf" name="fakestore-cart-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="fa29d776-3ceb-4cbe-9710-712ebc518dfe" actual="#[vars.httpStatus]" expected="#[415]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerMethodNotAllowedSuccess" doc:id="dc903768-ef38-46b8-9c45-a4c861d83500" expectedErrorType="APIKIT:METHOD_NOT_ALLOWED">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when APIKIT:METHOD_NOT_ALLOWED" doc:id="b8c0880b-500f-44fe-ad35-c49d24154f3c" processor="apikit:router">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="APIKIT:METHOD_NOT_ALLOWED" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-main" doc:id="db7be07a-4b31-4039-b5b4-0bd4e3b1f368" name="fakestore-cart-papi-main" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="882f807f-f095-47d8-9773-275edb68c7fb" actual="#[vars.httpStatus]" expected="#[405]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerHttpTimeoutSuccess" doc:id="de8a70e0-eb0b-461e-8682-08c9ba24a1c2" expectedErrorType="HTTP:TIMEOUT">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when HTTP:TIMEOUT" doc:id="84e3cd57-a50d-4a50-8d06-58350cb9a96f" processor="http:request">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-proxy-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="HTTP:TIMEOUT" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Copy_of_Flow Reference to getAllCarts-implFlow" doc:id="ee6348b8-9b20-4af2-a271-5f8a196b6d1d" name="getAllCarts-implFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="14dcf636-484e-4fcd-9278-f9429ee9cdc9" actual="#[vars.httpStatus]" expected="#[500]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerNotFoundinConsoleSuccess" doc:id="3cc7b8c9-d0f4-4e67-b712-f5c3eba34453" expectedErrorType="APIKIT:NOT_FOUND">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Copy_of_Mock when APIKIT:NOT_FOUND" doc:id="ab4c75e5-d327-4ab3-b0bf-87fc00591af9" processor="apikit:console">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-cart-papi-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="APIKIT:NOT_FOUND" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to fakestore-cart-papi-console" doc:id="7f2e3daa-7a29-4f48-a6b6-57a82a0916d3" name="fakestore-cart-papi-console" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="8d4f2df6-3399-4b73-a94d-dacb68089f07" actual="#[vars.httpStatus]" expected="#[404]" />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="fakestore-cart-prc-api-impl-triggerAnyErrorSuccess" doc:id="f423d8bd-57bf-4b35-aef1-3ea2e2d88665" expectedErrorType="ANY">
+			<munit:behavior>
+				<munit-tools:mock-when doc:name="Mock when ANY" doc:id="acdd0f28-00e0-40c0-bc5c-6bf07f43c37b" processor="http:request">
+					<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="fakestore-proxy-api-config" attributeName="config-ref" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return>
+						<munit-tools:error typeId="ANY" />
+					</munit-tools:then-return>
+				</munit-tools:mock-when>
+			</munit:behavior>
+			<munit:execution>
+				<flow-ref doc:name="Flow Reference to getAllProducts-implFlow" doc:id="1b935d8d-5adf-4295-aff1-c18501ff78e4" name="getAllCarts-implFlow" />
+			</munit:execution>
+			<munit:validation>
+				<munit-tools:assert-equals doc:name="Assert equals" doc:id="bc8ff33a-f9dc-4f66-b3e0-04dd5c059a94" actual="#[error.errorType.identifier]" expected='#["ANY"]' />
+			</munit:validation>
+		</munit:test>
+	<munit:test name="checkoutCart-success" doc:id="0d54b475-3e85-4b83-986c-75aa4ccf44aa" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Fakestore Checkout Proxy API " doc:id="95b635cf-6597-47f8-9307-0690d13a425a" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="1039dc67-e809-4f02-b84f-dff2ac25f318" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartsuccess\mock_variable_1.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_2.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="username" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_3.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Fakestore User API" doc:id="df2e09ae-f459-4dd3-8a48-d423e0d9c51e" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="122e911e-4c9c-44ed-9353-4ca1ed0f2edf" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_payload1.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://checkoutCartsuccess\mock_attributes1.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_4.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartsuccess\mock_variable_5.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_6.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit-tools:mock-when doc:name="Mock Get username of the cart " doc:id="1cfcf9b8-21e0-4c46-95cd-63d2b35e50ab" processor="set-variable">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="f1464a6a-340f-4cd8-80e8-58d63014eba7" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_7.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartsuccess\mock_variable_8.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_9.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="username" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\mock_variable_10.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="5fc30bbe-d9c2-4a54-be0e-7a25e8881019" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://checkoutCartsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\set-event_variable_.dwl')]" encoding="UTF-8" mediaType="application/json" />
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartsuccess\set-event_variable_1.dwl')]" />
+					<munit:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\set-event_variable_2.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to checkoutCart" doc:id="045129d9-7ea2-4c63-a01f-5f124b3e2141" name="checkoutCart"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="1e0ae812-bd64-421c-b76a-1cf62763c182" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import checkoutCartsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="processCart-success" doc:id="afd8b661-1ff7-44c7-991a-5bc0b0922ba2" >
+		<munit:behavior >
+			<munit-tools:mock-when doc:name="Mock Product Proxy API" doc:id="dde2c9d6-41dd-4803-8f15-a12d86a02e57" processor="http:request">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute whereValue="8b8b4e92-727f-4d55-b896-a16b6ad906f6" attributeName="doc:id" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[output application/json --- readUrl('classpath://processCartsuccess\mock_payload.dwl')]" mediaType="application/json" encoding="UTF-8" />
+					<munit-tools:attributes value="#[readUrl('classpath://processCartsuccess\mock_attributes.dwl')]" />
+					<munit-tools:variables >
+						<munit-tools:variable key="cart" value="#[output application/json --- readUrl('classpath://processCartsuccess\mock_variable_.dwl')]" mediaType="application/json" encoding="UTF-8" />
+						<munit-tools:variable key="outboundHeaders" value="#[readUrl('classpath://processCartsuccess\mock_variable_1.dwl')]" />
+						<munit-tools:variable key="cartId" value="#[output application/java --- readUrl('classpath://processCartsuccess\mock_variable_2.dwl')]" mediaType="application/java" encoding="UTF-8" />
+					</munit-tools:variables>
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+			<munit:set-event doc:name="Set Input" doc:id="fcc7ce3e-b2ea-46d8-8b12-4ab1eccea39d" >
+				<munit:payload value="#[output application/json --- readUrl('classpath://processCartsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
+				<munit:attributes value="#[readUrl('classpath://processCartsuccess\set-event_attributes.dwl')]" />
+				<munit:variables >
+					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://processCartsuccess\set-event_variable_.dwl')]" />
+					<munit:variable key="cartId" value="#[output application/java --- readUrl('classpath://processCartsuccess\set-event_variable_1.dwl')]" encoding="UTF-8" mediaType="application/java" />
+				</munit:variables>
+			</munit:set-event>
+		</munit:behavior>
+		<munit:execution >
+			<flow-ref doc:name="Flow-ref to processCart" doc:id="915f9fba-ca6e-489a-8d61-93aecc63a286" name="processCart"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert doc:name="Assert payload" doc:id="070e0f4a-3cb5-45ec-b1eb-079b90391714" message="The payload does not match">
+				<munit-tools:that ><![CDATA[#[%dw 2.0
+import processCartsuccess::assert_expression_payload
+---
+assert_expression_payload::main({payload: payload, attributes: attributes, vars: vars})]]]></munit-tools:that>
+			</munit-tools:assert>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

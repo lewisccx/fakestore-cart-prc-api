@@ -27,7 +27,7 @@ http://www.mulesoft.org/schema/mule/api-gateway http://www.mulesoft.org/schema/m
 		<http:request-connection host="${fakestoreproductapi.host}" port="${fakestoreproductapi.port}" connectionIdleTimeout="${http.timeout}" />
 	</http:request-config>
 	<configuration doc:name="Configuration" doc:id="16f8d39b-d52f-4b7e-9364-bd6da99c266e" defaultErrorHandler-ref="globalError_Handler" />
-	<api-gateway:autodiscovery apiId="${app.appId}" ignoreBasePath="true" doc:name="API Autodiscovery" doc:id="cbce3098-94e3-470f-9472-dbda264f51e5" flowRef="fakestore-cart-papi-main" />
+	<global-property doc:name="Global Property" doc:id="33ac7121-c13d-4171-80c1-a23c7c5b27b5" name="mule.env" value="dev" />
 	<error-handler name="globalError_Handler" doc:id="6751d71f-aa12-4a88-b38e-4d24b2d1cfc2" >
 		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="eba97e27-0eba-4f98-b3fc-ddde25e7ddc7" type="HTTP:TIMEOUT">
 			<ee:transform doc:name="HTTP:TIMEPOUT" doc:id="201d397b-ef81-41c3-bfee-72a7fa4474d0" >
@@ -38,7 +38,7 @@ output application/json
 {
 	"header":{
 		"apiName": p('app.name'),
-		"apiVersion": 
+		"apiVersion":  p('version'),
 		"correlationId": correlationId,
     }, 
     "error": {
@@ -59,7 +59,7 @@ output application/json
 {
 	"header":{
 		"apiName": p('app.name'),
-		"apiVersion": 
+		"apiVersion": p('version'),
 		"correlationId": correlationId,
     }, 
     "error": {

@@ -143,7 +143,6 @@ output application/json
 	<flow name="createNewCart-implFlow" doc:id="b0c099e0-7a14-4c56-9283-6586287b49ae" >
 		<logger level="INFO" doc:name="Start create new cart" doc:id="158bb5db-a684-4d2c-a674-98c0550658e6" message="Start create new cart"/>
 		<http:request method="POST" doc:name="Fakestore Cart Proxy API" doc:id="98226050-5576-48bc-aae5-1a3242ec263e" config-ref="fakestore-proxy-api-config" path="/carts"/>
-		<flow-ref doc:name="Process Cart" doc:id="1cf79b66-4bc7-448f-bdeb-070705830a78" name="processCart"/>
 		<choice doc:name="Choice" doc:id="ac229d06-19c5-40b1-bab2-1bfb2b580ff6" >
 			<when expression="#[%dw 2.0&#10;output application/json&#10;import isNumeric from dw::core::Strings&#10;---&#10;if ((payload.products map((item, index) -&gt; item.quantity &gt; 0)) contains false) true else false]" >
 				<ee:transform doc:name="Invalid product quantity" doc:id="6c581732-7614-4759-85ce-eb6b53341d15" >
@@ -157,8 +156,10 @@ output application/json
 					</ee:message>
 				</ee:transform>
 				<logger level="INFO" doc:name="Invalid product quantity  &lt;= 0" doc:id="af8ffa73-5c4e-415d-aa39-4ff14e49ee91" message="Invalid product quantity  &lt;= 0"/>
+				<logger level="INFO" doc:name="Error product quantity less than 0" doc:id="367be1f7-8c6b-43ec-bbb0-32bd273b1446" message="Error product quantity less than 0"/>
 			</when>
 			<otherwise>
+				<flow-ref doc:name="processCart" doc:id="8e40ad0d-78a0-454c-9575-ae24056178b3" name="processCart"/>
 				<os:store doc:name="Store newly created cart" doc:id="31569cbe-d4d1-4e01-b9c6-0c968a9c499c" key="#[payload.id]" failIfPresent="true" objectStore="cart_os" />
 				<logger level="INFO" doc:name="Store newly creately cart to Object Store" doc:id="b3b840ca-7ceb-4590-8e10-800c6b167dc4" message="Store newly creately cart to Object Store"/>
 			</otherwise>
@@ -203,7 +204,6 @@ output application/json
 	"id" : vars.cartId
 }]]]></http:uri-params>
 		</http:request>
-		<flow-ref doc:name="process cart" doc:id="bef56441-8680-4f49-ad2f-4f80da718e8d" name="processCart"/>
 		<choice doc:name="Choice" doc:id="d964ac6c-ce1b-40b1-ac9b-89a020cbc2fa" >
 			<when expression="#[%dw 2.0&#10;output application/json&#10;import isNumeric from dw::core::Strings&#10;---&#10;if ((payload.products map((item, index) -&gt; item.quantity &gt; 0)) contains false) true else false]">
 				<ee:transform doc:name="Invalid product quantity" doc:id="57973fc8-35b7-441d-a579-927a20eea6cf">
@@ -219,6 +219,7 @@ output application/json
 				<logger level="INFO" doc:name="Invalid product quantity &lt;= 0" doc:id="f2a000b3-ba6e-45c0-a222-69e9ba13e9fe" />
 			</when>
 			<otherwise >
+				<flow-ref doc:name="process cart" doc:id="bef56441-8680-4f49-ad2f-4f80da718e8d" name="processCart" />
 				<os:store doc:name="Store updated cart" doc:id="796a2f5a-1b29-4b14-9d6c-1498c91f6417" key="#[payload.id]" objectStore="cart_os" />
 				<logger level="INFO" doc:name="Store updated cart into Object Store" doc:id="1926d883-bd32-479d-aa5c-f596d1e86f17" message="Store updated cart into Object Store"/>
 			</otherwise>
