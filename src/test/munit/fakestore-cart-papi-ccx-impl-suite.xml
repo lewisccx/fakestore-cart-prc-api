@@ -64,15 +64,15 @@
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="984a8a08-f9b3-4e57-99e5-a4a386f78259" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="984a8a08-f9b3-4e57-99e5-a4a386f78259">
 				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowexistingCartCheckoutSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to checkoutCart-implFlow" doc:id="f21f8add-43e8-4eb1-8af7-428c5524991f" name="checkoutCart-implFlow"/>
 		</munit:execution>
 		<munit:validation>
@@ -106,15 +106,15 @@
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="70d095fa-e3b9-45bb-a7f7-afff07425861" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="70d095fa-e3b9-45bb-a7f7-afff07425861">
 				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartNotFound\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to checkoutCart-implFlow" doc:id="893e2610-7351-4d72-b157-c6c7839c8b4f" name="checkoutCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -182,15 +182,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="19ab1a65-c004-4208-bf7c-be6250a83a91" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="19ab1a65-c004-4208-bf7c-be6250a83a91">
 				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartimplFlowcheckoutCartExistsInObjectStoreSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to checkoutCart-implFlow" doc:id="0b4277ef-29ee-4e49-92ef-0952874ebd83" name="checkoutCart-implFlow"/>
 		</munit:execution>
 		<munit:validation>
@@ -224,15 +224,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="6ed7e1d4-da0a-4d16-af99-8020fdf0d093" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="6ed7e1d4-da0a-4d16-af99-8020fdf0d093">
 				<munit:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to deleteCart-implFlow" doc:id="d90d69e4-11f6-42e5-a4ad-4318e259fef0" name="deleteCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -271,15 +271,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="16cd77f3-9e3c-4c94-9e8e-3a8756079cfb" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="16cd77f3-9e3c-4c94-9e8e-3a8756079cfb">
 				<munit:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartNotFoundSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to deleteCart-implFlow" doc:id="eb63ef47-c2a4-4dfe-8544-708f79549603" name="deleteCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -329,15 +329,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="4871b4dd-5c50-435c-85ea-3e98a3078f15" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="4871b4dd-5c50-435c-85ea-3e98a3078f15">
 				<munit:payload value="#[output application/json --- readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://deleteCartimplFlowdeleteCartInObjectStoreSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to deleteCart-implFlow" doc:id="c1c69284-e127-485d-a1dc-933951c8e7fa" name="deleteCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -363,15 +363,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="c86a5380-8020-4443-be0d-00a920908754" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="c86a5380-8020-4443-be0d-00a920908754">
 				<munit:payload value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\set-event_payload.dwl')]" encoding="UTF-8" />
 				<munit:attributes value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getAllCartsimplFlowgetAllCartsSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to getAllCarts-implFlow" doc:id="2d218ed3-7381-47cf-8036-fb12ad153f39" name="getAllCarts-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -424,15 +424,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="fc0e92d4-b9fc-4aaf-ba5c-76b21155ac41" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="fc0e92d4-b9fc-4aaf-ba5c-76b21155ac41">
 				<munit:payload value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\set-event_payload.dwl')]" encoding="UTF-8" />
 				<munit:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to getCartByID-implFlow" doc:id="55342751-6e6b-4bc2-b1e1-1ac97afc11c7" name="getCartByID-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -471,15 +471,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="60f52d1e-4ff1-4ab1-acd1-823c1c145214" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="60f52d1e-4ff1-4ab1-acd1-823c1c145214">
 				<munit:payload value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\set-event_payload.dwl')]" encoding="UTF-8" />
 				<munit:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFailed\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to getCartByID-implFlow" doc:id="8f6a20c7-ac11-4054-937c-e06f8ec69e84" name="getCartByID-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -517,15 +517,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="d3ee1031-425e-41ab-bebf-6d5fc4842827" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="d3ee1031-425e-41ab-bebf-6d5fc4842827">
 				<munit:payload value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\set-event_payload.dwl')]" encoding="UTF-8" />
 				<munit:attributes value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://getCartByIDimplFlowgetCartByIDFromObjectStoreSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to getCartByID-implFlow" doc:id="87c8e75f-e911-40dd-a396-4402ddbcbc37" name="getCartByID-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -551,15 +551,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="ff40e23e-dc61-4110-9574-16a2a4497422" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="ff40e23e-dc61-4110-9574-16a2a4497422">
 				<munit:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartFailedWithProductQuantityLessEqualZero\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to createNewCart-implFlow" doc:id="28fbcdd0-3e36-4aef-bd8f-78bcca2ebc0f" name="createNewCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -640,15 +640,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="f39e8c47-d208-4465-99f7-05f16032f4f4" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="f39e8c47-d208-4465-99f7-05f16032f4f4">
 				<munit:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to updateCart-implFlow" doc:id="38e80612-d9d8-44e4-a418-59fbd67dfecb" name="updateCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -700,6 +700,8 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution>
 			<munit:set-event doc:name="Set Input" doc:id="38e41db4-5728-4d21-8706-3ad220a29922">
 				<munit:payload value="#[output application/json --- readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\set-event_attributes.dwl')]" />
@@ -707,8 +709,6 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://createNewCartimplFlowcreateNewCartSuccess\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution>
 			<flow-ref doc:name="Flow-ref to createNewCart-implFlow" doc:id="df68de8a-c562-49fc-8a6b-98b31f5911a8" name="createNewCart-implFlow" />
 		</munit:execution>
 		<munit:validation>
@@ -735,15 +735,15 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="2498c1ba-6e70-45c3-b198-d084e0adbc50" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="2498c1ba-6e70-45c3-b198-d084e0adbc50">
 				<munit:payload value="#[output application/json --- readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://updateCartimplFlowupdateCartFailedWithProductQuantityLessEqualZero\set-event_variable_.dwl')]" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to updateCart-implFlow" doc:id="8f058b61-0e77-48a0-8153-89c8602d9c6f" name="updateCart-implFlow"/>
 		</munit:execution>
 		<munit:validation >
@@ -980,17 +980,17 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="5fc30bbe-d9c2-4a54-be0e-7a25e8881019" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="5fc30bbe-d9c2-4a54-be0e-7a25e8881019">
 				<munit:payload value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://checkoutCartsuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="cart" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\set-event_variable_.dwl')]" encoding="UTF-8" mediaType="application/json" />
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://checkoutCartsuccess\set-event_variable_1.dwl')]" />
 					<munit:variable key="cartId" value="#[output application/json --- readUrl('classpath://checkoutCartsuccess\set-event_variable_2.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to checkoutCart" doc:id="045129d9-7ea2-4c63-a01f-5f124b3e2141" name="checkoutCart"/>
 		</munit:execution>
 		<munit:validation >
@@ -1018,16 +1018,16 @@ assert_expression_payload::main({payload: payload, attributes: attributes, vars:
 					</munit-tools:variables>
 				</munit-tools:then-return>
 			</munit-tools:mock-when>
-			<munit:set-event doc:name="Set Input" doc:id="fcc7ce3e-b2ea-46d8-8b12-4ab1eccea39d" >
+		</munit:behavior>
+		<munit:execution >
+			<munit:set-event doc:name="Set Input" doc:id="fcc7ce3e-b2ea-46d8-8b12-4ab1eccea39d">
 				<munit:payload value="#[output application/json --- readUrl('classpath://processCartsuccess\set-event_payload.dwl')]" encoding="UTF-8" mediaType="application/json" />
 				<munit:attributes value="#[readUrl('classpath://processCartsuccess\set-event_attributes.dwl')]" />
-				<munit:variables >
+				<munit:variables>
 					<munit:variable key="outboundHeaders" value="#[readUrl('classpath://processCartsuccess\set-event_variable_.dwl')]" />
 					<munit:variable key="cartId" value="#[output application/java --- readUrl('classpath://processCartsuccess\set-event_variable_1.dwl')]" encoding="UTF-8" mediaType="application/java" />
 				</munit:variables>
 			</munit:set-event>
-		</munit:behavior>
-		<munit:execution >
 			<flow-ref doc:name="Flow-ref to processCart" doc:id="915f9fba-ca6e-489a-8d61-93aecc63a286" name="processCart"/>
 		</munit:execution>
 		<munit:validation >
